@@ -1,0 +1,15 @@
+class Solution {
+    public int maxResult(int[] nums, int k) {
+         int n=nums.length;
+        int[] m=new int[n];
+        m[n-1]=nums[n-1];
+        Deque<Integer> dq=new ArrayDeque();dq.addFirst(n-1);
+        for(int i=n-2;i>=0;i--){
+           if(!dq.isEmpty() && dq.peekFirst()>i+k) dq.removeFirst();
+           while(!dq.isEmpty() && m[i+1]>=m[dq.peekLast()]) dq.removeLast();
+            dq.addLast(i+1);
+            m[i]=nums[i]+m[dq.peekFirst()];
+        }
+        return m[0]; 
+    }
+}
